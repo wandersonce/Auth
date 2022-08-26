@@ -1,13 +1,27 @@
 import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
+import { FormEvent, useState } from 'react'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  function handleSubmit(event: FormEvent) {
+    event.preventDefault();
+    const data ={
+      email,
+      password,
+    }
+
+    console.log(data)
+  }
+
   return (
-    <div className={styles.container}>
-      Hello World
-    </div>
+    <form onSubmit={handleSubmit} className={styles.container}>
+      <input type="email" value={email} onChange={e => setEmail(e.target.value)}/>
+      <input type="password" value={password} onChange={e => setPassword(e.target.value)}/>
+      <button type="submit">Enter</button>
+    </form>
   )
 }
 
