@@ -1,10 +1,11 @@
 import { createContext,ReactNode, useEffect, useState } from "react";
+import Router from 'next/router'
 import { api } from "../services/api";
 
 type User ={
   email:string;
-  permission:string[];
-  role:string[];
+  permissions:string[];
+  roles:string[];
 };
 
 type SignInCredentials = {
@@ -33,8 +34,16 @@ export function AuthProvider({children} : AuthProviderProps){
         email,
         password
       })
+
+      const {permissions , roles} = response.data;
+
+      setUser({
+        email,
+        permissions,
+        roles
+      })
   
-      console.log(response.data)
+      Router.push('/dashboard')
     }catch(err){
       console.log(err)
     }
